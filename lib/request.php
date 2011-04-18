@@ -2,7 +2,7 @@
 
 class Request {
 
-	private $_sources = array('_GET', '_POST');
+	private $_sources = array('_GET', '_POST', '_COOKIE', '_SERVER');
 	private $_path;
 	private $_querystring;
 
@@ -11,6 +11,13 @@ class Request {
 		$this->_path = $parts['path'];
 		if (isset($parts['query']))
 			$this->_querystring = $parts['query'];
+	}
+
+	public function __get($key) {
+		foreach ($this->_sources as $src) {
+			if (isset($$src[$key]))
+				return $$src[$key];
+		}
 	}
 
 	public function getPath() {
@@ -46,12 +53,17 @@ class Request {
 
 	public function getControllerName() {
 		$path = substr($this->getPath(), 1);
-		return ($path) ? explode('/', $path, 1) : '';
+		$controller = '';
+
+		if (!empty($path))
+			list($controller) = explode('/', strtolower($path));
+
+		return $controller;
 	}
 
 	public function getActionName() {
 		$path = substr($this->getPath(), 1);
-		$bits = explode('/', $path);
+		$bits = explode('/', strtolower($path));
 		return isset($bits[1]) ? $bits[1] : '';
 	}
 

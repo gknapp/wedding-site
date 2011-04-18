@@ -2,17 +2,38 @@
 
 class Dispatcher {
 
-	const DEFAULT_METHOD = 'index';
+	const CONTROLLER_PREFIX = 'Controller';
+	const DEFAULT_CONTROLLER = 'index';
+	const ERROR_CONTROLLER = 'error';
+	const DEFAULT_ACTION = 'index';
 
 	public function run() {
-		$request = $this->getRequest();
-		$controller = $request->getControllerName();
-		$action = $request->getActionName();
-		var_dump($action);
+		$request = new Request;
+		$controller = $this->_buildControllerName($request->getControllerName());
+		$action = $this->_buildActionName($request->getActionName());
+
+		if (!class_exists($controller))
+			$controller = $this->_buildControllerName(self::ERROR_CONTROLLER);
+
+		$controller = new $controller;
+
+		if (!method_exists($controller, $action)) {
+			$default = self::DEFAULT_ACTION;
+			$controller->$default();
+		} else
+			$controller->$action();
 	}
 
-	public function getRequest() {
-		return new Request;
+	private function _buildControllerName($name) {
+		if (empty($name))
+			$name = self::DEFAULT_CONTROLLER;
+		return self::CONTROLLER_PREFIX . '_' . ucfirst($name);
+	}
+
+	private function _buildActionName($name) {
+		if (empty($name))
+			$name = self::DEFAULT_ACTION;
+		return $name;
 	}
 
 }

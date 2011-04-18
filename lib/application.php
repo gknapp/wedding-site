@@ -19,26 +19,26 @@ class Application {
 	}
 
 	public function autoload($class) {
-		if (class_exists($class, false))
+		if (class_exists($class, false) || interface_exists($class, false))
 			return;
 
-		$viewPath = 'app' . DS . 'views' . DS;
-		$dirs = array('app', 'lib');
+		$viewPath = APPDIR . DS . 'views' . DS;
+		$dirs = array(APPDIR, LIBDIR);
 
 		foreach ($dirs as $dir) {
 			$file = $dir . DS . str_replace('_', DS, strtolower($class)) . '.';
 			$file .= (strpos($file, $viewPath) !== false) ? 'phtml' : 'php';
 
-			if ($this->_fileExistsInAppDir($file))
+			if (file_exists(BASEDIR . $file))
 				break;
 		}
 
 		if (!file_exists(BASEDIR . $file))
-			die("File does not exist '$file'\n");
+			return;
 
 		require_once $file;
 
-		if (!class_exists($class) && !interface_exists($class)) {
+		if (!class_exists($class, false) && !interface_exists($class, false)) {
 			die("Loaded '$file' but '$class' not found within\n");
 		}
 	}
@@ -49,10 +49,6 @@ class Application {
 			if (is_callable($loader))
 				spl_autoload_register($loader, false, true);
 		}
-	}
-
-	private function _fileExistsInAppDir($file) {
-		return (substr($file, 0, 4) == 'app' . DS && file_exists($file));
 	}
 
 }
