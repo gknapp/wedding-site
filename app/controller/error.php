@@ -1,9 +1,8 @@
 <?php
 
-class Controller_Error {
+class Controller_Error extends Lib_Controller {
 
 	public function index() {
-		echo "<p>" . __METHOD__ . "</p>";
 		echo "How I got here:";
 
 		$trace = array_reverse(debug_backtrace());

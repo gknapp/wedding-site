@@ -1,8 +1,18 @@
 <?php
 
-class Application {
+class Lib_Application {
 
 	private $_dispatcher;
+
+	// autoloader variables
+	private $_alLibPrefix;
+	private $_alLibLen;
+
+	public function __construct() {
+		$this->_alLibPrefix = ucfirst(strtolower(LIBDIR)) . '_';
+		$this->_alLibLen = strlen($this->_alLibPrefix);
+		spl_autoload_register(array($this, 'autoload'));
+	}
 
 	public function setDispatcher($dispatcher) {
 		$this->_dispatcher = $dispatcher;
@@ -12,26 +22,18 @@ class Application {
 		$this->_dispatcher->run();
 	}
 
-	public function registerAutoloaders($loaders = null) {
-		spl_autoload_register(array($this, 'autoload'));
-		if (!empty($loaders))
-			$this->_registerThirdPartyAutoloaders($loaders);
+	// register autoloader, surpress exceptions, prepend default loader
+	public function registerAutoloader($loader) {
+		if (!empty($loader) && is_callable($loader))
+			spl_autoload_register($loader, false, true);
 	}
 
 	public function autoload($class) {
 		if (class_exists($class, false) || interface_exists($class, false))
 			return;
 
-		$viewPath = APPDIR . DS . 'views' . DS;
-		$dirs = array(APPDIR, LIBDIR);
-
-		foreach ($dirs as $dir) {
-			$file = $dir . DS . str_replace('_', DS, strtolower($class)) . '.';
-			$file .= (strpos($file, $viewPath) !== false) ? 'phtml' : 'php';
-
-			if (file_exists(BASEDIR . $file))
-				break;
-		}
+		$file = ($this->_libraryClass($class) ? '' : APPDIR . DS)
+			. str_replace('_', DS, strtolower($class)) . '.php';
 
 		if (!file_exists(BASEDIR . $file))
 			return;
@@ -43,12 +45,8 @@ class Application {
 		}
 	}
 
-	// register autoloaders, surpress exceptions, prepend default loader
-	private function _registerThirdPartyAutoloaders($autoloaders) {
-		foreach ($autoloaders as $loader) {
-			if (is_callable($loader))
-				spl_autoload_register($loader, false, true);
-		}
+	private function _libraryClass($class) {
+		return (substr($class, 0, $this->_alLibLen) == $this->_alLibPrefix);
 	}
 
 }

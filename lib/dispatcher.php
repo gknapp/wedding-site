@@ -1,6 +1,6 @@
 <?php
 
-class Dispatcher {
+class Lib_Dispatcher {
 
 	const CONTROLLER_PREFIX = 'Controller';
 	const DEFAULT_CONTROLLER = 'index';
@@ -8,7 +8,7 @@ class Dispatcher {
 	const DEFAULT_ACTION = 'index';
 
 	public function run() {
-		$request = new Request;
+		$request = new Lib_Request;
 		$controller = $this->_buildControllerName($request->getControllerName());
 		$action = $this->_buildActionName($request->getActionName());
 
@@ -18,10 +18,12 @@ class Dispatcher {
 		$controller = new $controller;
 
 		if (!method_exists($controller, $action)) {
-			$default = self::DEFAULT_ACTION;
-			$controller->$default();
-		} else
-			$controller->$action();
+			$action = self::DEFAULT_ACTION;
+		}
+
+		$controller->preDispatch();
+		$controller->$action();
+		$controller->postDispatch();
 	}
 
 	private function _buildControllerName($name) {

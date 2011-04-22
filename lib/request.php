@@ -1,6 +1,6 @@
 <?php
 
-class Request {
+class Lib_Request {
 
 	private $_sources = array('_GET', '_POST', '_COOKIE', '_SERVER');
 	private $_path;

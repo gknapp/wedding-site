@@ -1,9 +1,9 @@
 <?php
 
-class Controller_Index {
+class Controller_Index extends Lib_Controller {
 
 	public function index() {
-		echo "This is the index action of the index controller.";
+		$this->view->render('index.phtml');
 	}
 
 }
