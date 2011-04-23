@@ -7,15 +7,15 @@ class Lib_Dispatcher {
 	const ERROR_CONTROLLER = 'error';
 	const DEFAULT_ACTION = 'index';
 
-	public function run() {
-		$request = new Lib_Request;
+	public function run($container) {
+		$request = $container->request;
 		$controller = $this->_buildControllerName($request->getControllerName());
 		$action = $this->_buildActionName($request->getActionName());
 
 		if (!class_exists($controller))
 			$controller = $this->_buildControllerName(self::ERROR_CONTROLLER);
 
-		$controller = new $controller;
+		$controller = new $controller($container);
 
 		if (!method_exists($controller, $action)) {
 			$action = self::DEFAULT_ACTION;

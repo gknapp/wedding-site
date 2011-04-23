@@ -2,11 +2,17 @@
 
 class Lib_Controller {
 
-	protected $layout;
-	protected $view;
+	protected $_layout;
+	protected $_view;
+	protected $_container;
 
-	public function __construct() {
+	public function __construct($container) {
+		$this->_container = $container;
 		$this->_setupView();
+	}
+
+	public function getRequest() {
+		return $this->_container->request;
 	}
 
 	public function preDispatch() {}
@@ -17,32 +23,31 @@ class Lib_Controller {
 
 	protected function _setupView() {
 		$viewBase = BASEDIR . APPDIR . DS . 'view' . DS;
-		$this->layout = new Zend_Layout(array(
+		$this->_layout = new Zend_Layout(array(
 			'layout' => 'default',
 			'layoutPath' => $viewBase . DS . 'layout'
 		));
-		$this->view = new Lib_View(array(
+		$this->_view = new Lib_View(array(
 			'strictVars' => true
 		));
-		$view = $this->view->getView();
+		$view = $this->_view->getView();
 		$view->setScriptPath(
 			$viewBase . DS . 'scripts' . DS . $this->_getControllerName()
 		);
 		$view->addHelperPath($viewBase . DS . 'helper');
-		$this->layout->setView($view);
+		$this->_layout->setView($view);
 	}
 
 	protected function _getControllerName() {
-		$request = new Lib_Request();
-		$name = $request->getControllerName();
+		$name = $this->getRequest()->getControllerName();
 		if (empty($name))
 			$name = Lib_Dispatcher::DEFAULT_CONTROLLER;
 		return $name;
 	}
 
 	protected function _renderView() {
-		$this->layout->content = $this->view->buffer;
-		return $this->layout->render();
+		$this->_layout->content = $this->_view->buffer;
+		return $this->_layout->render();
 	}
 
 }

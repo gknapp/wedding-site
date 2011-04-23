@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL | E_STRICT);
+
 define('DS', DIRECTORY_SEPARATOR);
 define('BASEDIR', dirname(getcwd()) . DS);
 define('VENDOR',  BASEDIR . 'vendor');
@@ -21,7 +23,7 @@ $zendLoader = function($class) {
 	if (!file_exists($file))
 		return;
 
-	require_once $file;
+	require $file;
 
 	if (!class_exists($class, false) && !interface_exists($class, false)) {
 		die("Loaded '$file' but '$class' not found within\n");
@@ -31,4 +33,23 @@ $zendLoader = function($class) {
 $webApp = new Lib_Application;
 $webApp->registerAutoloader($zendLoader);
 $webApp->setDispatcher(new Lib_Dispatcher);
-$webApp->run();
+
+// assign application dependencies
+$container = new Lib_Container;
+$container->dsn = 'sqlite:' . BASEDIR . 'data/wedding.db';
+$container->dbh = function($c) {
+	return new PDO($c->dsn);
+};
+$container->database = function ($c) {
+	return new Lib_Sqlite3($c->dbh);
+};
+$container->request = new Lib_Request;
+$container->session = function($c) {
+	return function($namespace) {
+		return new Zend_Session_Namespace($namespace);
+	};
+};
+
+//$start = microtime(true);
+$webApp->run($container);
+//echo "<p>Runtime: " . round((microtime(true) - $start) * 1000, 2) . " ms</p>";

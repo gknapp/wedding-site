@@ -18,8 +18,8 @@ class Lib_Application {
 		$this->_dispatcher = $dispatcher;
 	}
 
-	public function run() {
-		$this->_dispatcher->run();
+	public function run($container) {
+		$this->_dispatcher->run($container);
 	}
 
 	// register autoloader, surpress exceptions, prepend default loader
