@@ -3,20 +3,9 @@
 class Controller_Error extends Lib_Controller {
 
 	public function index() {
+		header("HTTP/1.1 404 Not Found");
 		echo "How I got here:";
-
-		$trace = array_reverse(debug_backtrace());
-		$buffer = '';
-		foreach ($trace as $step) {
-			if (isset($step['class']))
-				$buffer .= $step['class'];
-
-			if (isset($step['type']))
-				$buffer .= $step['type'];
-
-			$buffer .= $step['function'] . "(" . implode(', ', $step['args']) . ")\n";
-		}
-		echo "<pre>" . $buffer . "</pre>";
+		echo "<pre>" . debug_print_backtrace() . "</pre>";
 	}
 
 }
