@@ -20,12 +20,21 @@ class Lib_Request {
 		}
 	}
 
+	public function redirect($location) {
+		header('Location: ' . $location);
+		exit;
+	}
+
 	public function getPath() {
 		return $this->_path;
 	}
 
 	public function getQuerystring() {
 		return $this->_querystring;
+	}
+
+	public function isPost() {
+		return ($_SERVER['REQUEST_METHOD'] == 'POST');
 	}
 
 	public function getPost($elem = null) {
