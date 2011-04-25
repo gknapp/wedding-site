@@ -9,9 +9,9 @@
       <input type="password" name="passcode" size="10" />
       <input type="submit" value="login" class="button" />
     </form>
-    <p id="instructions">Please enter your passcode to login.</p>
+    <p id="instructions"><?php echo $this->loginMessage(); ?></p>
     <p id="slug">
-      This is your postcode and character at the bottom of your invitation.<br>
+      Your passcode is your postcode &amp; character<br/> at the bottom of your invitation.<br>
 	  <a>Help me!</a>
 	</p>
     <div id="help">
