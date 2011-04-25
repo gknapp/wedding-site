@@ -134,3 +134,8 @@ body {
   display: none;
   margin: 5px 0;
 }
+
+span.alert {
+	color: #ff0000;
+	font-weight: bold;
+}
