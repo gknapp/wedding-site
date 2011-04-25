@@ -2,24 +2,28 @@
 
 class Lib_Application {
 
-	private $_dispatcher;
+	private $dispatcher;
+	private $container;
 
 	// autoloader variables
-	private $_alLibPrefix;
-	private $_alLibLen;
+	private $alLibPrefix;
+	private $alLibLen;
 
 	public function __construct() {
-		$this->_alLibPrefix = ucfirst(strtolower(LIBDIR)) . '_';
-		$this->_alLibLen = strlen($this->_alLibPrefix);
+		$this->alLibPrefix = ucfirst(strtolower(LIBDIR)) . '_';
+		$this->alLibLen = strlen($this->alLibPrefix);
 		spl_autoload_register(array($this, 'autoload'));
 	}
 
 	public function setDispatcher($dispatcher) {
-		$this->_dispatcher = $dispatcher;
+		$this->dispatcher = $dispatcher;
 	}
 
 	public function run($container) {
-		$this->_dispatcher->run($container);
+		$this->container = $container;
+		set_exception_handler(array($this, 'onException'));
+		set_error_handler(array($this, 'onError'));
+		$this->dispatcher->run($container);
 	}
 
 	// register autoloader, surpress exceptions, prepend default loader
@@ -46,7 +50,15 @@ class Lib_Application {
 	}
 
 	private function _libraryClass($class) {
-		return (substr($class, 0, $this->_alLibLen) == $this->_alLibPrefix);
+		return (substr($class, 0, $this->alLibLen) == $this->alLibPrefix);
+	}
+
+	public function onError($num, $msg, $file, $line) {
+		$this->dispatcher->onError($this->container, $num, $msg, $file, $line);
+	}
+
+	public function onException($e) {
+		$this->dispatcher->onException($this->container, $e);
 	}
 
 }

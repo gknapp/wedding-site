@@ -11,4 +11,17 @@ class Controller_Error extends Lib_Controller {
 		echo "<pre>" . nl2br($trace) . "</pre>";
 	}
 
+	public function error($num, $msg, $file, $line) {
+		header("HTTP/1.1 500 Internal Server Error");
+		echo sprintf("<p>%s in %s on line %s</p>", $msg, $file, $line);
+	}
+
+	public function exception($e) {
+		header("HTTP/1.1 500 Internal Server Error");
+		echo sprintf(
+			"<p>Exception:<br/>%s<br/>in %s on line %s</p>",
+			$e->getMessage(), $e->getFile(), $e->getLine()
+		);
+	}
+
 }

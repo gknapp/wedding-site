@@ -38,4 +38,18 @@ class Lib_Dispatcher {
 		return $name;
 	}
 
+	public function onError($container, $num, $msg, $file, $line) {
+		$controller = new Controller_Error($container);
+		$controller->preDispatch();
+		$controller->error($num, $msg, $file, $line);
+		$controller->postDispatch();
+	}
+
+	public function onException($container, $exception) {
+		$controller = new Controller_Error($container);
+		$controller->preDispatch();
+		$controller->exception($exception);
+		$controller->postDispatch();
+	}
+
 }
