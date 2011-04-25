@@ -2,8 +2,8 @@
 
 class Lib_Controller {
 
+	protected $view;
 	protected $_layout;
-	protected $_view;
 	protected $_container;
 
 	public function __construct($container) {
@@ -13,6 +13,10 @@ class Lib_Controller {
 
 	public function getRequest() {
 		return $this->_container->request;
+	}
+
+	public function getContainer() {
+		return $this->_container;
 	}
 
 	public function preDispatch() {}
@@ -27,26 +31,16 @@ class Lib_Controller {
 			'layout' => 'default',
 			'layoutPath' => $viewBase . DS . 'layout'
 		));
-		$this->_view = new Lib_View(array(
+		$this->view = new Lib_View(array(
 			'strictVars' => true
 		));
-		$view = $this->_view->getView();
-		$view->setScriptPath(
-			$viewBase . DS . 'scripts' . DS . $this->_getControllerName()
-		);
-		$view->addHelperPath($viewBase . DS . 'helper');
-		$this->_layout->setView($view);
-	}
-
-	protected function _getControllerName() {
-		$name = $this->getRequest()->getControllerName();
-		if (empty($name))
-			$name = Lib_Dispatcher::DEFAULT_CONTROLLER;
-		return $name;
+		$this->view->setScriptPath($viewBase . 'scripts');
+		$this->view->addHelperPath($viewBase . 'helper', 'View_Helper');
+		$this->_layout->setView($this->view);
 	}
 
 	protected function _renderView() {
-		$this->_layout->content = $this->_view->buffer;
+		$this->_layout->content = $this->view->buffer;
 		return $this->_layout->render();
 	}
 
