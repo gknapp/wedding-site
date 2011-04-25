@@ -15,6 +15,10 @@ class Lib_Controller {
 		return $this->_container->request;
 	}
 
+	public function getControllerName() {
+		return $this->getRequest()->getControllerName();
+	}
+
 	public function getContainer() {
 		return $this->_container;
 	}
