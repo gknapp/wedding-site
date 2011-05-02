@@ -79,6 +79,18 @@ class Model_User extends Lib_Model {
 		return $guests;
 	}
 
+	public function getPostcode() {
+		$user = $this->getDB()->query(
+			"SELECT passcode FROM user WHERE user_id = ?", $this->userId
+		)->fetch();
+
+		if (empty($user['passcode']))
+			return '';
+
+		$postcode = substr($user['passcode'], 0, strlen($user['passcode']) - 1);
+		return strtoupper($postcode);
+	}
+
 	protected function _updateLastLogin() {
 		$this->getDB()->query(
 			"UPDATE user SET lastlogin = datetime(now) WHERE user_id = ?",

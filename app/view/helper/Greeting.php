@@ -6,12 +6,12 @@ class View_Helper_Greeting extends Zend_View_Helper_Abstract {
 		$user = $this->view->user;
 		if (!$user->loggedIn())
 			return '';
-
 		$guests = $user->getGuests();
 		$firstNames = array_map(function($guest) {
-			return $guest->forename;
-		}, $guests);
-		return $this->view->escape('Hi ' . join(' & ', $firstNames));
+				return $guest->forename;
+			}, $guests
+		);
+		return $this->view->escape(join(' & ', $firstNames));
 	}
 
 }

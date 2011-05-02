@@ -1,0 +1,34 @@
+<?php echo $this->doctype('HTML5'); ?>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!--[if ie]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <title>Joanna &amp; Greg's Big Day</title>
+  <meta name="description" content="Joanna and Greg's wedding day">
+  <meta name="author" content="Greg Knapp http://gregk.me">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/jag.css">
+</head>
+<body>
+<section id="container">
+<?php echo $this->layout()->content; ?>
+</section>
+</body>
+<script type="text/javascript" src="js/yepnope.1.0.1-min.js"></script>
+<script type="text/javascript">
+function loaded() {
+  $("#login a").click(function() {
+    var help = $("#help");
+    if (help.is(":hidden")) {
+      $("#slug").slideUp(function() { help.slideDown(); });
+    }
+  });
+}
+
+yepnope({
+  load: 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js',
+  callback: loaded
+});
+</script>
+</html>

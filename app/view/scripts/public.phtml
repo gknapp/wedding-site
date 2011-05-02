@@ -4,7 +4,7 @@
     <image src="/images/couple.png" id="couple" alt="Cartoon wedding couple" /><br>
     <image src="/images/date.png" id="date" />
   </header>
-  <div id="main" role="main">
+  <section role="main">
     <form method="post" action="/login">
       <input type="password" name="passcode" size="10" />
       <input type="submit" value="login" class="button" />
@@ -17,24 +17,8 @@
     <div id="help">
       <image src="/images/invite-help.png"
         alt="Example invitation with character at bottom circled in red" />
-        <p>If your postcode is SG6 7RT and the character<br>
-        in your invitation is F, your passcode will be<br>SG67RTF.</p>
+        <p>If your postcode is SG6 7RT and the character in<br/>
+        your invitation is F, your passcode will be: SG67RTF</p><br/>
     </div>
-  </div>
+  </section>
 </div>
-<script type="text/javascript" src="js/yepnope.1.0.1-min.js"></script>
-<script type="text/javascript">
-function jQueryLoaded() {
-  $("#main a").click(function() {
-    var help = $("#help");
-    if (help.is(":hidden")) {
-      $("#slug").slideUp(function() { help.slideDown(); });
-    }
-  });
-}
-
-yepnope({
-  load: 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js',
-  callback: jQueryLoaded
-});
-</script>

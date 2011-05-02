@@ -1,0 +1,15 @@
+<div id="main" role="main">
+  <p><?php echo $this->greeting(); ?></p>
+  <ul>
+    <li><a href="/admin">Admin Home</a></li>
+  	<li><a href="/admin/guestlist">Edit Guest List</a></li>
+  	<li><a href="/logout">Logout</a></li>
+  </ul>
+</div>
+<script type="text/javascript" src="js/yepnope.1.0.1-min.js"></script>
+<script type="text/javascript">
+yepnope({
+  load: 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js',
+  //callback: jQueryLoaded
+});
+</script>

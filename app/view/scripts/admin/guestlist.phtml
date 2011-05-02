@@ -1,0 +1,35 @@
+<div id="main" role="main">
+  <p><?php echo $this->greeting(); ?></p>
+  <ul class="menu">
+    <li><a href="/admin">Admin Home</a></li>
+  	<li><a href="/admin/guestlist">Edit Guest List</a></li>
+  	<li><a href="/logout">Logout</a></li>
+  </ul>
+
+  <div>
+    <table>
+      <?php foreach ($this->guests as $guest): ?>
+      <form method="post" action="/admin/guestlist">
+      <tr>
+        <td><?php echo $this->formText('forename', $guest['forename']); ?></td>
+        <td><?php echo $this->formText('surname', $guest['surname']); ?></td>
+        <td><?php echo $this->formText('passcode', $guest['passcode']); ?></td>
+        <td><?php echo $this->formSelect('rsvp', $guest['rsvp'], $this->rsvpOpts); ?></td>
+        <td><?php echo $guest['rsvp_time']; ?></td>
+        <td><?php echo $this->formSelect('menu', $guest['menu_id'], $this->menuOpts); ?></td>
+        <td><?php echo $this->formSelect('reception', $guest['reception_id'], $this->drinkOpts); ?></td>
+        <td><?php echo $this->formSelect('wine', $guest['wine_id'], $this->wineOpts); ?></td>
+        <td><input type="submit" value="save" /></td>
+      </tr>
+      </form>
+      <?php endforeach; ?>
+      </table>
+  </div>
+</div>
+<script type="text/javascript" src="js/yepnope.1.0.1-min.js"></script>
+<script type="text/javascript">
+yepnope({
+  load: 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js',
+  //callback: jQueryLoaded
+});
+</script>

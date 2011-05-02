@@ -1,17 +1,31 @@
 <?php
 
-class Controller_Admin extends Lib_Controller {
+class Controller_Admin extends Controller_LoggedIn {
+
+	public function preDispatch() {
+		parent::preDispatch();
+		if ($this->user->isAdmin() == false)
+			$this->getRequest()->redirect('/');
+	}
 
 	public function index() {
-		$user = new Model_User($this->getContainer());
-		if ($user->loggedIn() && $user->isAdmin()) {
-			$this->view->user = $user;
-			$this->view->render(
-				$this->getRequest()->getControllerName() . DS . 'index.phtml'
-			);
-		} else {
-			$this->getRequest()->redirect('/');
-		}
+		$this->view->render(
+			$this->getControllerName() . DS . 'index.phtml'
+		);
+	}
+
+	public function guestlist() {
+		//$guestlist = new Model_Guestlist($this->getContainer());
+		//$this->view->guestlist =
+		$this->view->render(
+			$this->getControllerName() . DS . 'guestlist.phtml'
+		);
+	}
+
+	public function gifts() {
+		$this->view->render(
+			$this->getControllerName() . DS . 'gifts.phtml'
+		);
 	}
 
 }

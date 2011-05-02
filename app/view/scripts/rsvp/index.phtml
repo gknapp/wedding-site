@@ -1,0 +1,14 @@
+  <h1>Welcome <?php echo $this->greeting(); ?></h1>
+  <p>We hope you can join us on our wedding day, we've tried to supply all the
+  information we think you'll need. Please RSVP below.</p><br/>
+  <h2>RSVP</h2>
+  <form method="post" action="/rsvp/submit">
+    <table>
+      <th>Guest</th><th>Attending</th><th>Not Attending</th>
+      <tr>
+        <td>Greg Knapp</td>
+        <td><input type="radio" name="rsvp" value="1" /></td>
+        <td><input type="radio" name="rsvp" value="0" /></td>
+      </tr>
+    </table>
+  </form>
