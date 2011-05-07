@@ -34,7 +34,7 @@ class Lib_Request {
 	}
 
 	public function isPost() {
-		return ($_SERVER['REQUEST_METHOD'] == 'POST');
+		return ($this->getMethod() == 'POST');
 	}
 
 	public function getPost($elem = null) {
