@@ -11,17 +11,7 @@
   <link rel="stylesheet" href="/css/jag.css">
   <script type="text/javascript"
     src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-  <script type="text/javascript"
-    src="/js/jquery.effects.core.min.js"></script>
-  <script type="text/javascript">
-    function animateHeader() {
-      $('#hearts').animate(
-        { top: '0' }, { duration: 700 }
-      );
-    }
-
-    $(function() { animateHeader() });
-  </script>
+  <script type="text/javascript" src="/js/jquery.effects.core.min.js"></script>
 </head>
 <body>
 <div id="container">
@@ -39,5 +29,13 @@
   </div>
 </div>
 <div id="hearts"><div id="go-home"><a href="/rsvp" title="Back to the homepage"> </a></div></div>
+<script type="text/javascript">
+  function animateHeader() {
+    $('#hearts').animate(
+      { top: '0' }, { duration: 700 }
+    );
+  }
+  $(function() { animateHeader() });
+</script>
 </body>
 </html>

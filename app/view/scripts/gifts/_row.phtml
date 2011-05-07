@@ -3,6 +3,6 @@
   <td>£<?php echo $this->price; ?></td>
   <td><?php echo $this->requested; ?></td>
   <td><?php echo $this->formSelect(
-	'gift_' . $this->giftId, '0', null, range(0, $this->requested));
+	'gift[' . $this->giftId . ']', $this->quantity, null, range(0, $this->requested));
 ?></td>
 </tr>

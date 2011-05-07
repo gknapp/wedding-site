@@ -255,6 +255,10 @@ h1 {
 	font-size: 1.5em;
 }
 
+dl {
+	margin-left: 1em;
+}
+
 address {
 	padding-left: 7em;
 }
@@ -272,7 +276,6 @@ table.listing tr.first {
 }
 
 .gifts h4 {
-	font-weight: normal;
 	margin: 0;
 	padding: 0;
 }
@@ -287,6 +290,18 @@ table.listing tr.first {
 
 .center {
 	text-align: center;
+}
+
+.right {
+	text-align: right !important;
+}
+
+.notice {
+	border: 1px solid #555;
+	border-radius: 8px;
+	background-color: #ffdde3;
+	padding: 0.5em;
+	margin: 0 0 1em;
 }
 
 #mansion-address {
@@ -315,24 +330,42 @@ table.listing tr.first {
 	margin: 0 auto;
 }
 
-#footer {
-	border-top: 1px solid #aaa;
-	margin: 10px 0;
-	padding: 4px 0;
-	text-align: center;
+.float-left {
+	float: left;
+	width: auto;
+}
+
+.float-right {
+	float: right;
+	width: auto;
+}
+
+#gifts-total {
+	float: right;
+	width: 257px;
+}
+
+#gifts-total .left {
+	width: 115px;
+}
+
+#gifts-total .right {
+	width: 125px;
 }
 
 .clear {
 	clear: both;
 }
 
-.float-left {
-	float: left;
-	width: auto;
-}
-
 .valign-middle {
 	line-height: 2.4em;
+}
+
+#footer {
+	border-top: 1px solid #aaa;
+	margin: 10px 0;
+	padding: 4px 0;
+	text-align: center;
 }
 
 #footer .couple {

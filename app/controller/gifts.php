@@ -8,4 +8,18 @@ class Controller_Gifts extends Controller_LoggedIn {
 		$this->view->render();
 	}
 
+	public function buy() {
+		$request = $this->getRequest();
+		if (!$request->isPost())
+			$request->redirect('/gifts');
+
+		$post = $request->getPost();
+
+		if (isset($post['gift']))
+			$this->user->buyGifts($post['gift']);
+
+		$this->view->post = $post;
+		$this->view->render($this->getControllerName() . DS . 'thanks.phtml');
+	}
+
 }

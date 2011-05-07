@@ -1,0 +1,18 @@
+<h1>Thank you!</h1>
+<p>Your present(s) are much appreciated, we can't take card payment, so we have to ask
+if you'd be so kind as to transfer the money to our honeymoon account (or include cash/cheque in a card on the day).</p>
+<p>The gifts you've chosen:</p>
+<dl>
+<?php foreach ($this->user->getBoughtGifts() as $gift): ?>
+  <dt><?php echo $gift['quantity'] . ' x ' . $gift['name'] . ' - £' . $gift['total'] ?></dt>
+<?php endforeach; ?>
+</dl>
+</p>
+<p>Our account details:
+<dl>
+  <dt>Alliance &amp; Leicester</dt>
+  <dt>a/c no. 272856681</dt>
+  <dt>sort no. 09-01-32</dt>
+</dl>
+</p>
+<p>Please include your name as the payment reference so we know who to thank!</p>

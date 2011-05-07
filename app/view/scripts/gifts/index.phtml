@@ -1,10 +1,65 @@
 <h1>Gifts</h1>
-<p>Gifts are discretionary, it's more important to us that you can join us to celebrate our wedding.
-If you would like to buy us a gift, we would be very grateful if you could help enhance our honeymoon.
-In no particular order, the list of available upgrades are:</p>
+<?php if ($this->user->boughtGifts()): ?>
+<div class="notice">
+  <p>We can't thank you enough for the gifts!</p>
+  <p>You chose to buy us:
+    <?php echo $this->boughtGifts(); ?>
+  </p>
+</div>
+<?php else: ?>
+<p>Gifts are discretionary, it's more important that you can join us to celebrate on our big day.
+If you would like to buy us a gift, we would be very grateful if you could help enhance our honeymoon.</p>
+<?php endif; ?>
+<p>The list of available upgrades are:</p>
+<form method="post" action="/gifts/buy">
 <table class="listing gifts">
   <tr class="first">
     <th width="70%">Gift</th><th width="10%">Price</th><th width="10%">Requested</th><th width="10%">&nbsp;</th>
   </tr>
   <?php echo $this->gifts(); ?>
 </table>
+<div id="gifts-total">
+	<div class="float-left left"><b>Total:</b>&nbsp; £<span>0</span></div>
+	<div class="float-left right"><input type="submit" value="Buy upgrades" /></div>
+</div>
+<div class="clear"></div>
+</form>
+<h3>Where are we off to?</h3>
+<div class="center">
+	<img class="img" src="/images/meeru.jpg" />
+	<p>We're heading to Meeru Island in the Maldives for two weeks.</p>
+</div>
+<script type="text/javascript">
+	var selects;
+	var lblTotal;
+	var submit;
+
+	function updateTotal() {
+		var total = 0;
+
+		selects.each(function(i) {
+			var select = $(this);
+			var price = getPrice(select);
+			total += select.attr('value') * price;
+		});
+
+		submit.attr('disabled', (total > 0 ? false : true));
+		lblTotal.html(total);
+	}
+
+	function getPrice(elem) {
+		var prices = elem.parent().siblings().eq(-2).html().match(/(\d+)/);
+		return prices[0];
+	}
+
+	$(function() {
+		selects = $('form select');
+		lblTotal = $('#gifts-total span');
+		submit = $('form input[type=submit]');
+
+		updateTotal();
+		selects.each(function(i) {
+			$(this).change(updateTotal);
+		});
+	});
+</script>
