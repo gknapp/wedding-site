@@ -21,24 +21,22 @@ class Lib_Sqlite3 {
 	}
 
 	public function query($sql, $args = null) {
-		if (empty($args) || strtolower(substr($sql, 0, 7)) !== 'select ') {
-			$stmt = $this->dbh->query($sql);
-		} else {
-			$args = is_array($args) ? array_values($args) : array($args);
-			$stmt = $this->dbh->prepare($sql);
+		$stmt = $this->dbh->prepare($sql);
 
-			if (!$stmt) {
-				die(
-					'Could not prepare query: "'
-					. $sql
-					. '", args: ' . print_r($args, 1)
-				);
-			}
-
-			$stmt->execute($args);
-			$stmt->setFetchMode($this->fetchMode);
+		if (!$stmt) {
+			die(
+				'Could not prepare query: "' . $sql
+				. '", args: ' . print_r($args, 1)
+			);
 		}
 
+		if (strtolower(substr($sql, 0, 7)) == 'select ')
+			$stmt->setFetchMode($this->fetchMode);
+
+		if ($args)
+			$args = is_array($args) ? array_values($args) : array($args);
+
+		$stmt->execute($args);
 		return $stmt;
 	}
 
