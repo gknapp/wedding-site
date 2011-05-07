@@ -24,16 +24,20 @@
   </script>
 </head>
 <body>
-<section id="container">
-<?php echo $this->navigation(); ?>
-<div id="main" role="main">
-<?php echo $this->layout()->content; ?>
-</div>
-  <footer>
-      Saturday, 24th September 2011 @ <a href="http://www.themansionhouse.org">The Mansion House</a> /
+<div id="container">
+  <?php echo $this->navigation(); ?>
+  <div id="main" role="main">
+  <?php echo $this->layout()->content; ?>
+  </div>
+  <div id="footer">
+    <div class="float-left couple"><img src="/images/tiny-couple.png" width="43" height="28" alt="Image of a small wedding couple" /></div>
+    <div class="float-left valign-middle">
+      Saturday, 24th September 2011 @ <a href="http://www.themansionhouse.org" title="visit our wedding venue website">The Mansion House</a> /
       <a href="/logout">Logout</a>
-  </footer>
-</section>
-<div id="hearts"> </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<div id="hearts"><div id="go-home"><a href="/rsvp" title="Back to the homepage"> </a></div></div>
 </body>
 </html>

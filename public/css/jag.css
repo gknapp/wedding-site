@@ -104,6 +104,14 @@ body {
 a, a:active, a:visited { color: #607890; }
 a:hover { color: #036; }
 
+b, strong {
+  font-weight: bold;
+}
+
+i, em {
+  font-style: italic;
+}
+
 p {
   padding-bottom: 0.5em;
 }
@@ -160,12 +168,29 @@ span.alert {
 	z-order: -1;
 }
 
+#go-home {
+	margin: 35px auto 0;
+	width: 260px;
+	height: 100px;
+}
+
+#go-home a {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+#go-home a, #go-home a:link, #go-home a:visited {
+	text-docoration: none;
+	color: transparent;
+}
+
 #container {
 	margin: 0 auto;
 	width: 800px;
 }
 
-nav {
+#nav {
 	overflow: hidden;
 	position: relative;
 	width: 100%;
@@ -175,17 +200,17 @@ nav {
 	letter-spacing: 1px;
 }
 
-nav ul {
+#nav ul {
 	list-style: none;
-	padding: 0 0 0 135px;
+	padding: 0 0 0 100px;
 	overflow: hidden;
 }
 
-nav li {
+#nav li {
 	display: inline;
 }
 
-nav a {
+#nav a {
 	-webkit-transition: width 0.12s ease;
 	-moz-transition: width 0.12s ease;
 	-o-transition: width 0.12s ease;
@@ -201,18 +226,18 @@ nav a {
 	margin: 0 4px;
 }
 
-nav a:hover { color: white; }
-nav a:visited, nav a:link { color: white; }
+#nav a:hover { color: white; }
+#nav a:visited, #nav a:link { color: white; }
 
-nav a.active {
+#nav a.active {
 	color: #444;
 	background-color: #f1a5b2;
 	font-weight: bold;
 	letter-spacing: 0;
 }
 
-nav li:hover a { width: 25%; }
-nav ul:hover .active:hover { width: 25%; }
+#nav li:hover a { width: 25%; }
+#nav ul:hover .active:hover { width: 25%; }
 
 #main {
 	padding: 0 15px;
@@ -246,6 +271,20 @@ table.listing tr.first {
 	border: none;
 }
 
+.gifts h4 {
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+}
+
+.gifts td, .gifts th {
+	text-align: center;
+}
+
+.left {
+	text-align: left !important;
+}
+
 .center {
 	text-align: center;
 }
@@ -265,10 +304,6 @@ table.listing tr.first {
 	width: 68%;
 }
 
-.clear {
-	clear: both;
-}
-
 .img {
 	border: 1px solid #555;
 }
@@ -280,9 +315,28 @@ table.listing tr.first {
 	margin: 0 auto;
 }
 
-footer {
+#footer {
 	border-top: 1px solid #aaa;
 	margin: 10px 0;
 	padding: 4px 0;
 	text-align: center;
+}
+
+.clear {
+	clear: both;
+}
+
+.float-left {
+	float: left;
+	width: auto;
+}
+
+.valign-middle {
+	line-height: 2.4em;
+}
+
+#footer .couple {
+	width: 30%;
+	text-align: right;
+	padding-right: 7px;
 }
