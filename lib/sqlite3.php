@@ -23,6 +23,9 @@ class Lib_Sqlite3 {
 	public function query($sql, $args = null) {
 		$stmt = $this->dbh->prepare($sql);
 
+		if ($args)
+			$args = is_array($args) ? array_values($args) : array($args);
+
 		if (!$stmt) {
 			die(
 				'Could not prepare query: "' . $sql
@@ -32,9 +35,6 @@ class Lib_Sqlite3 {
 
 		if (strtolower(substr($sql, 0, 7)) == 'select ')
 			$stmt->setFetchMode($this->fetchMode);
-
-		if ($args)
-			$args = is_array($args) ? array_values($args) : array($args);
 
 		$stmt->execute($args);
 		return $stmt;
