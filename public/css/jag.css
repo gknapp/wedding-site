@@ -267,6 +267,10 @@ table.listing {
 	width: 100%;
 }
 
+table.rsvp {
+	width: 65% !important;
+}
+
 table.listing tr {
 	border-top: 1px dotted #777;
 }

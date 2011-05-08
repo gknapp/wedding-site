@@ -28,4 +28,12 @@ class Model_Guest extends Lib_Model {
 		return true;
 	}
 
+	public function rsvp($rsvp) {
+		$this->getDB()->query(
+			"UPDATE guest SET rsvp = ?, rsvp_time = datetime('now') " .
+			"WHERE guest_id = ?",
+			array($rsvp, $this->guestId)
+		);
+	}
+
 }

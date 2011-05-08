@@ -1,14 +1,58 @@
   <h1>Welcome <?php echo $this->greeting(); ?></h1>
-  <p>We are so happy to be getting married, and hope that you will be able join us!</p>
-  <p>We've tried to include all the information we think you'll need on this website. Please RSVP below.</p><br/>
+  <p>We are very happy to be getting married, and hope that you will be able join us!</p>
+  <p>We've tried to include all the information we think you'll need on this website. Please RSVP below.</p>
+  <p>Unfortunately due to restricted space at our venue, we've had to take the difficult
+  decision of only inviting adults to our wedding. We hope you can understand our predicament.</p>
+  <img src="/images/joanna-greg.png" width="127" height="41" alt="Joanna & Greg" />
   <h2>RSVP</h2>
-  <form method="post" action="/rsvp/submit">
-    <table>
-      <th>Guest</th><th>Attending</th><th>Not Attending</th>
-      <tr>
-        <td>Greg Knapp</td>
-        <td><input type="radio" name="rsvp" value="1" /></td>
-        <td><input type="radio" name="rsvp" value="0" /></td>
-      </tr>
+  <table class="rsvp listing">
+    <tr class="first">
+      <th>Guest</th><th class="center">Attending</th><th class="center">Not Attending</th>
+    </tr>
+    <?php echo $this->guests(); ?>
+  </table>
+<!--
+  <h2>Reception Drinks</h2>
+  <p>We have provisioned for two free reception drinks (possibly more depending on demand). A selection of 6 canapes will be served.</p>
+  <form method="post" action="/rsvp/reception">
+    <table class="reception">
+      <th>Guest</th><th>Beverage</th>
+      <?php /* echo $this->receptionDrinks(); */ ?>
     </table>
   </form>
+  <h2>Menu Preference</h2>
+  <p>The menu at our venue is seasonal and is likely to change, for this reason the descriptions shown are examples dishes.</p>
+  <form method="post" action="/rsvp/menu">
+    <table class="menu">
+      <th>Guest</th><th>Menu</th>
+      <?php /* echo $this->menuOptions(); */ ?>
+    </table>
+  </form>
+  <h2>Wine Preference</h2>
+  <p>White wine on the table will be a New Zealand Sauvignon Blanc, the red will be a Spanish Tempranillo Rioja.</p>
+  <form method="post" action="/rsvp/wine">
+    <table class="wine">
+      <th>Guest</th><th>Wine</th>
+      <?php /* echo $this-wineOptions(); */ ?>
+    </table>
+  </form>
+-->
+<script type="text/javascript">
+  $(function() {
+    $('.rsvp input[type=radio]').change(submitRsvp);
+  });
+
+  function submitRsvp() {
+  	$.ajax({
+  	  url: '/rsvp/attending',
+  	  type: 'POST',
+  	  data: 'guest=' + $(this).attr('name') + '&rsvp=' + $(this).attr('value'),
+  	  success: function(msg) {
+        // implement a cut off time
+  	  },
+  	  error: function(e) {
+  	  	alert("Sorry, there was a problem and we cannot record your RSVP, please try again later");
+  	  }
+  	});
+  }
+</script>
