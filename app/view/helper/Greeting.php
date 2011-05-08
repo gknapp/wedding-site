@@ -7,11 +7,20 @@ class View_Helper_Greeting extends Zend_View_Helper_Abstract {
 		if (!$user->loggedIn())
 			return '';
 		$guests = $user->getGuests();
-		$firstNames = array_map(function($guest) {
+		$firstNames = array_map(
+			function($guest) {
 				return $guest->forename;
-			}, $guests
+			},
+			$guests
 		);
-		return $this->view->escape(join(' & ', $firstNames));
+
+		if (count($firstNames) > 2) {
+			$last = array_pop($firstNames);
+			$names = join(', ', $firstNames) . ' & ' . $last;
+		} else
+			$names = join(' & ', $firstNames);
+
+		return $this->view->escape($names);
 	}
 
 }
