@@ -44,6 +44,9 @@ class Lib_Controller {
 	}
 
 	protected function _renderView() {
+		if (!$this->_layout->isEnabled())
+			return $this->view->buffer;
+
 		$this->_layout->content = $this->view->buffer;
 		return $this->_layout->render();
 	}
