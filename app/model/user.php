@@ -73,9 +73,6 @@ class Model_User extends Lib_Model {
 			"SELECT guest_id FROM guest WHERE user_id = ?", $this->userId
 		)->fetchAll();
 
-		// var_dump("SELECT guest_id FROM guest WHERE user_id = " . $this->userId);
-		// var_dump($guests);
-
 		if (empty($guests))
 			return false;
 
