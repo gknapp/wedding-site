@@ -5,14 +5,23 @@ class Model_User extends Lib_Model {
 	public $userId;
 	protected $_sessionName = 'user';
 
+	public function abroad() {
+		$abroad = $this->getDB()->query(
+			"SELECT international FROM user WHERE user_id = ?",
+			$this->userId
+		)->fetch();
+
+		return ($abroad['international'] > 0);
+	}
+
 	public function login($request) {
 		$session = $this->getSession();
 		$session->setExpirationHops(1, 'loginAttempt');
 		$session->loginAttempt = 1;
 
 		$passCode = $request->getPost('passcode');
-		if (preg_match('/[A-z0-9\s]{5,9}/', $passCode)) {
-			$passCode = strtolower(trim($passCode));
+		$passCode = strtolower(str_replace(' ', '', trim($passCode)));
+		if (preg_match('/[A-z0-9\s]{6,8}/', $passCode)) {
 			$user = $this->getDB()->query(
 				"SELECT user_id FROM user WHERE passcode = ?", $passCode
 			)->fetch();
