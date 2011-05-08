@@ -11,7 +11,7 @@ class Model_User extends Lib_Model {
 		$session->loginAttempt = 1;
 
 		$passCode = $request->getPost('passcode');
-		if (preg_match('/[A-z0-9\s]{6,8}/', $passCode)) {
+		if (preg_match('/[A-z0-9\s]{5,9}/', $passCode)) {
 			$passCode = strtolower(trim($passCode));
 			$user = $this->getDB()->query(
 				"SELECT user_id FROM user WHERE passcode = ?", $passCode
@@ -92,15 +92,21 @@ class Model_User extends Lib_Model {
 	}
 
 	public function buyGifts($gifts) {
-		foreach ($gifts as $id => $quantity) {
-			if (empty($quantity))
-				continue;
+		$db = $this->getDB();
 
-			$this->getDB()->query(
-				"REPLACE INTO user_basket (user_id, gift_id, quantity) " .
-				"VALUES (?, ?, ?)",
-				array($this->userId, $id, $quantity)
-			);
+		foreach ($gifts as $id => $quantity) {
+			if (empty($quantity)) {
+				$db->query(
+					"DELETE FROM user_basket WHERE user_id = ? AND gift_id = ?",
+					array($this->userId, $id)
+				);
+			} else {
+				$db->query(
+					"REPLACE INTO user_basket (user_id, gift_id, quantity) " .
+					"VALUES (?, ?, ?)",
+					array($this->userId, $id, $quantity)
+				);
+			}
 		}
 	}
 
