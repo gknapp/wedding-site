@@ -1,14 +1,23 @@
-<h1>Gifts</h1>
 <?php if ($this->user->boughtGifts()): ?>
+<h1>Thank you</h1>
 <div class="notice">
-  <p>We can't thank you enough for the gifts!</p>
+  <p>We can't thank you enough for your gift(s)!</p>
   <p>You chose to buy us:
     <?php echo $this->boughtGifts(); ?>
   </p>
+  <p>Our account details:
+  <dl>
+    <dt>Alliance &amp; Leicester</dt>
+    <dt>a/c no. 272856681</dt>
+    <dt>sort no. 09-01-32</dt>
+  </dl>
+  </p>
 </div>
 <?php else: ?>
-<p>Gifts are discretionary, it's more important that you can join us to celebrate on our big day.
-If you would like to buy us a gift, we would be very grateful if you could help enhance our honeymoon.</p>
+<h1>Gifts</h1>
+<p>The most important thing for us is that you can be with us to celebrate our special day. However, should you wish to
+give us something for our married life together, a contribution to our honeymoon fund would be greatly appreciated,
+helping make our honeymoon memories extra special and those that last a lifetime!</p>
 <?php endif; ?>
 <p>The list of available upgrades are:</p>
 <form method="post" action="/gifts/buy">
