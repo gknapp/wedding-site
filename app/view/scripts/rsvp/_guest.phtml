@@ -3,7 +3,7 @@ $guest = $this->forename . ' ' . $this->surname;
 $name = $this->guestId;
 ?>
 <tr>
-  <td><?php echo $guest; ?></td>
+  <td class="guest"><?php echo $guest; ?></td>
   <td class="center">
     <?php echo $this->formRadio($name, $this->rsvp, null, array(1 => '')); ?>
   </td>

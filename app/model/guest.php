@@ -36,4 +36,25 @@ class Model_Guest extends Lib_Model {
 		);
 	}
 
+	public function setReception($receptionId) {
+		$this->getDB()->query(
+			"UPDATE guest SET reception_id = ? WHERE guest_id = ?",
+			array($receptionId, $this->guestId)
+		);
+	}
+
+	public function setMenu($menuId) {
+		$this->getDB()->query(
+			"UPDATE guest SET menu_id = ? WHERE guest_id = ?",
+			array($menuId, $this->guestId)
+		);
+	}
+
+	public function setWine($wineId) {
+		$this->getDB()->query(
+			"UPDATE guest SET wine_id = ? WHERE guest_id = ?",
+			array($wineId, $this->guestId)
+		);
+	}
+
 }

@@ -5,42 +5,71 @@
   decision of only inviting adults to our wedding. We hope you can understand our predicament.</p>
   <img src="/images/joanna-greg.png" width="127" height="41" alt="Joanna & Greg" />
   <h2>RSVP</h2>
+  <form>
   <table class="rsvp listing">
     <tr class="first">
       <th>Guest</th><th class="center">Attending</th><th class="center">Not Attending</th>
     </tr>
     <?php echo $this->guests(); ?>
   </table>
-<!--
+  </form><br/>
   <h2>Reception Drinks</h2>
   <p>We have provisioned for two free reception drinks (possibly more depending on demand). A selection of 6 canapes will be served.</p>
-  <form method="post" action="/rsvp/reception">
-    <table class="reception">
-      <th>Guest</th><th>Beverage</th>
-      <?php /* echo $this->receptionDrinks(); */ ?>
+  <form>
+    <table class="reception listing">
+      <tr class="first">
+        <th>Guest</th>
+        <th class="center">Champagne</th>
+        <th class="center">Pimms &amp;<br/>Lemonade</th>
+        <th class="center">Both</th>
+        <th class="center">Orange Juice</th>
+      </tr>
+      <?php echo $this->receptionDrinks(); ?>
     </table>
-  </form>
+  </form><br/>
   <h2>Menu Preference</h2>
-  <p>The menu at our venue is seasonal and is likely to change, for this reason the descriptions shown are examples dishes.</p>
-  <form method="post" action="/rsvp/menu">
-    <table class="menu">
-      <th>Guest</th><th>Menu</th>
-      <?php /* echo $this->menuOptions(); */ ?>
+  <p>The menu is seasonal and therefore likely to change, these are examples dishes:
+  <dl>
+    <dt><b>Meat</b> - Slow cooked blade of beef topped with homemade pate sat on a croute with a creamy brandy sauce</dt>
+    <dt><b>Fish</b> - Fillet of salmon with a lemon &amp; herb crust, champagne butter sauce and seasonal vegetables</dt>
+    <dt><b>Vegetarian</b> - Saute vegetable wellington with a basil sauce</dt>
+    <dt><b>Special</b> - If you have special dietary requirements / food allergies</dt>
+  </dl>
+  </p>
+  <form>
+    <table class="menu listing">
+      <tr class="first">
+        <th>Guest</th>
+        <th class="center">Meat</th>
+        <th class="center">Fish</th>
+        <th class="center">Vegetarian</th>
+        <th class="center">Special</th>
+      </tr>
+      <?php echo $this->menuOptions(); ?>
     </table>
-  </form>
+  </form><br/>
   <h2>Wine Preference</h2>
   <p>White wine on the table will be a New Zealand Sauvignon Blanc, the red will be a Spanish Tempranillo Rioja.</p>
-  <form method="post" action="/rsvp/wine">
-    <table class="wine">
-      <th>Guest</th><th>Wine</th>
-      <?php /* echo $this-wineOptions(); */ ?>
-    </table>
-  </form>
--->
+  <form>
+  <table class="wine listing">
+    <tr class="first">
+      <th>Guest</th><th class="center">White</th><th class="center">Red</th><th class="center">Neither</th>
+    </tr>
+    <?php echo $this->wineOptions(); ?>
+  </table>
+  </form><br/>
+  <p>We will be sitting down for the wedding breakfast at approximately 4.15pm and an evening buffet served around 9pm.</p>
 <script type="text/javascript">
   $(function() {
     $('.rsvp input[type=radio]').change(submitRsvp);
+    $('.reception input[type=radio]').change(submitReception);
+    $('.menu input[type=radio]').change(submitMenu);
+    $('.wine input[type=radio]').change(submitWine);
   });
+
+  function sorry(e) {
+    alert("Sorry, there was a problem and we cannot record your RSVP, please try again later");
+  }
 
   function submitRsvp() {
   	$.ajax({
@@ -50,9 +79,43 @@
   	  success: function(msg) {
         // implement a cut off time
   	  },
-  	  error: function(e) {
-  	  	alert("Sorry, there was a problem and we cannot record your RSVP, please try again later");
-  	  }
+  	  error: sorry
+  	});
+  }
+
+  function submitReception() {
+  	$.ajax({
+  	  url: '/rsvp/reception',
+  	  type: 'POST',
+  	  data: 'guest=' + $(this).attr('name') + '&reception=' + $(this).attr('value'),
+  	  success: function(msg) {
+        // implement a cut off time
+  	  },
+  	  error: sorry
+  	});
+  }
+
+  function submitMenu() {
+  	$.ajax({
+  	  url: '/rsvp/menu',
+  	  type: 'POST',
+  	  data: 'guest=' + $(this).attr('name') + '&menu=' + $(this).attr('value'),
+  	  success: function(msg) {
+        // implement a cut off time
+  	  },
+  	  error: sorry
+  	});
+  }
+
+  function submitWine() {
+  	$.ajax({
+  	  url: '/rsvp/wine',
+  	  type: 'POST',
+  	  data: 'guest=' + $(this).attr('name') + '&wine=' + $(this).attr('value'),
+  	  success: function(msg) {
+        // implement a cut off time
+  	  },
+  	  error: sorry
   	});
   }
 </script>

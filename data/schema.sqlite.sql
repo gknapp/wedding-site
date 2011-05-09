@@ -28,9 +28,9 @@ CREATE TABLE guest (
   rsvp INTEGER NOT NULL DEFAULT 0,
   rsvp_time DATETIME DEFAULT '0000-00-00 00:00:00',
   menu_id INTEGER NOT NULL,
-  diet VARCHAR(255) DEFAULT '',
   reception_id INTEGER NOT NULL,
-  wine_id INTEGER NOT NULL
+  wine_id INTEGER NOT NULL,
+  dietary VARCHAR(255) DEFAULT ''
 );
 
 CREATE INDEX "k_user_id" ON "guest" (user_id);

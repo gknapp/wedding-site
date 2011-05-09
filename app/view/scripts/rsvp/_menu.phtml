@@ -1,0 +1,19 @@
+<?php
+$guest = $this->forename . ' ' . $this->surname;
+$name = $this->guestId;
+?>
+<tr>
+  <td class="guest"><?php echo $guest; ?></td>
+  <td class="center">
+    <?php echo $this->formRadio($name, $this->menuId, null, array(1 => '')); ?>
+  </td>
+  <td class="center">
+    <?php echo $this->formRadio($name, $this->menuId, null, array(2 => '')); ?>
+  </td>
+  <td class="center">
+    <?php echo $this->formRadio($name, $this->menuId, null, array(3 => '')); ?>
+  </td>
+  <td class="center">
+    <?php echo $this->formRadio($name, $this->menuId, null, array(4 => '')); ?>
+  </td>
+</tr>

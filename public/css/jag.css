@@ -267,8 +267,8 @@ table.listing {
 	width: 100%;
 }
 
-table.rsvp {
-	width: 65% !important;
+table.rsvp, table.wine, table.reception, table.menu {
+	width: 75% !important;
 }
 
 table.listing tr {
@@ -277,6 +277,10 @@ table.listing tr {
 
 table.listing tr.first {
 	border: none;
+}
+
+td.guest {
+	width: 30%;
 }
 
 .gifts h4 {
