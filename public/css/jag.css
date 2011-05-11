@@ -104,6 +104,10 @@ body {
 a, a:active, a:visited { color: #607890; }
 a:hover { color: #036; }
 
+ul {
+  margin-left: 2em;
+}
+
 b, strong {
   font-weight: bold;
 }
@@ -285,6 +289,19 @@ td.guest {
 
 #diet {
 	margin: 10px 2px;
+}
+
+.saved {
+	border-radius: 5px;
+	background-color: #b6ffaa;
+	color: #117500;
+	padding: 1px 5px;
+	margin: 6px 10px 0;
+	width: 64px;
+	font-weight: bold;
+	font-style: italic;
+	text-align: center;
+	display: none;
 }
 
 .gifts h4 {

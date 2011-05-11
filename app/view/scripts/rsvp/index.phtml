@@ -4,7 +4,12 @@
   <p>Unfortunately due to restricted space at our venue, we've had to take the difficult
   decision of only inviting adults to our wedding. We hope you can understand our predicament.</p>
   <img src="/images/joanna-greg.png" width="127" height="41" alt="Joanna & Greg" />
-  <h2>RSVP</h2>
+  <table>
+    <tr>
+  	  <td><h2>RSVP</h2></td>
+  	  <td><div id="saved-rsvp" class="saved">Saved!</div></td>
+  	</tr>
+  </table>
   <form>
   <table class="rsvp listing">
     <tr class="first">
@@ -13,7 +18,12 @@
     <?php echo $this->guests(); ?>
   </table>
   </form><br/>
-  <h2>Reception Drinks</h2>
+  <table>
+    <tr>
+  	  <td><h2>Reception Drinks</h2></td>
+  	  <td><div id="saved-recep" class="saved">Saved!</div></td>
+  	</tr>
+  </table>
   <p>We have provisioned for two reception drinks (possibly more depending on demand). A selection of 6 canapes will be served.</p>
   <form>
     <table class="reception listing">
@@ -27,7 +37,12 @@
       <?php echo $this->receptionDrinks(); ?>
     </table>
   </form><br/>
-  <h2>Menu Preference</h2>
+  <table>
+    <tr>
+  	  <td><h2>Menu Preference</h2></td>
+  	  <td><div id="saved-menu" class="saved">Saved!</div></td>
+  	</tr>
+  </table>
   <p>The menu is seasonal and therefore likely to change, these are examples dishes:
   <dl>
     <dt><b>Meat</b> - Slow cooked blade of beef topped with homemade pate sat on a croute with a creamy brandy sauce</dt>
@@ -51,7 +66,12 @@
       <input type="text" name="dietary" id="require" maxlength="255" size="40" />
     </div> -->
   </form><br/>
-  <h2>Wine Preference</h2>
+  <table>
+    <tr>
+  	  <td><h2>Wine Preference</h2></td>
+  	  <td><div id="saved-wine" class="saved">Saved!</div></td>
+  	</tr>
+  </table>
   <p>White wine on the table will be a New Zealand Sauvignon Blanc, the red will be a Spanish Tempranillo Rioja.<br/>
     <em>Red wine is only permitted in the Ballroom where the wedding breakfast is served</em>.</p>
   <form>
@@ -86,25 +106,33 @@
     alert("Sorry, there was a problem and we cannot record your RSVP, please try again later");
   }
 
+  function saved(saved) {
+  	$(saved).fadeIn('fast', function() {
+  		$(this).delay(300).fadeOut('slow');
+  	});
+  }
+
   function submitRsvp() {
+  	var radio = $(this);
   	$.ajax({
   	  url: '/rsvp/attending',
   	  type: 'POST',
-  	  data: 'guest=' + $(this).attr('name') + '&rsvp=' + $(this).attr('value'),
+  	  data: 'guest=' + radio.attr('name') + '&rsvp=' + radio.attr('value'),
   	  success: function(msg) {
-        // implement a cut off time
+        saved('#saved-rsvp');
   	  },
   	  error: sorry
   	});
   }
 
   function submitReception() {
+  	var radio = $(this);
   	$.ajax({
   	  url: '/rsvp/reception',
   	  type: 'POST',
   	  data: 'guest=' + $(this).attr('name') + '&reception=' + $(this).attr('value'),
   	  success: function(msg) {
-        // implement a cut off time
+        saved('#saved-recep');
   	  },
   	  error: sorry
   	});
@@ -116,19 +144,20 @@
   	  type: 'POST',
   	  data: 'guest=' + radio.attr('name') + '&menu=' + radio.attr('value'),
   	  success: function(msg) {
-        // implement a cut off time
+        saved('#saved-menu');
   	  },
   	  error: sorry
   	});
   }
 
   function submitWine() {
+  	var radio = $(this);
   	$.ajax({
   	  url: '/rsvp/wine',
   	  type: 'POST',
   	  data: 'guest=' + $(this).attr('name') + '&wine=' + $(this).attr('value'),
   	  success: function(msg) {
-        // implement a cut off time
+        saved('#saved-wine');
   	  },
   	  error: sorry
   	});
