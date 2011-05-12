@@ -63,6 +63,24 @@ class Controller_Rsvp extends Controller_LoggedIn {
 		echo 'failed';
 	}
 
+	public function dietary() {
+		$request = $this->getRequest();
+		if (!$request->isPost())
+		  $request->redirect('/rsvp');
+
+		$this->_layout->disableLayout();
+
+		foreach ($this->user->getGuests() as $guest) {
+			if ($guest->guestId == $request->getPost('guest_id')) {
+				$guest->setDietary($request->getPost('requirements'));
+				echo 'success';
+				return;
+			}
+		}
+
+		echo 'failed';
+	}
+
 	public function wine() {
 		$request = $this->getRequest();
 		if (!$request->isPost())

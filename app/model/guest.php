@@ -11,6 +11,7 @@ class Model_Guest extends Lib_Model {
 	public $menuId;
 	public $receptionId;
 	public $wineId;
+	public $dietary;
 
 	public function load($guestId) {
 		$data = $this->getDB()->query(
@@ -23,7 +24,7 @@ class Model_Guest extends Lib_Model {
 		list(
 			$this->guestId, $this->forename, $this->surname, $this->userId,
 			$this->rsvp, $this->rsvpTime, $this->menuId, $this->receptionId,
-			$this->wineId
+			$this->wineId, $this->dietary
 		) = $data;
 		return true;
 	}
@@ -54,6 +55,13 @@ class Model_Guest extends Lib_Model {
 		$this->getDB()->query(
 			"UPDATE guest SET wine_id = ? WHERE guest_id = ?",
 			array($wineId, $this->guestId)
+		);
+	}
+
+	public function setDietary($requirements) {
+		$this->getDB()->query(
+			"UPDATE guest SET dietary = ? WHERE guest_id = ?",
+			array($requirements, $this->guestId)
 		);
 	}
 

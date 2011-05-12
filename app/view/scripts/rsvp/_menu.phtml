@@ -1,19 +1,55 @@
-<?php
-$guest = $this->forename . ' ' . $this->surname;
-$name = $this->guestId;
-?>
-<tr>
-  <td class="guest"><?php echo $guest; ?></td>
-  <td class="center">
-    <?php echo $this->formRadio($name, $this->menuId, null, array(1 => '')); ?>
-  </td>
-  <td class="center">
-    <?php echo $this->formRadio($name, $this->menuId, null, array(2 => '')); ?>
-  </td>
-  <td class="center">
-    <?php echo $this->formRadio($name, $this->menuId, null, array(3 => '')); ?>
-  </td>
-  <!-- <td class="center">
-    <?php echo $this->formRadio($name, $this->menuId, array('id' => 'special'), array(4 => '')); ?>
-  </td> -->
-</tr>
+
+
+
+
+  <table width="100%">
+    <tr>
+      <td width="580">
+        <table class="menu listing">
+          <tr class="first">
+            <th>Guest</th>
+            <th class="center">Meat</th>
+            <th class="center">Fish</th>
+            <th class="center">Vegetarian</th>
+            <th class="center">Special</th>
+          </tr>
+          <?php foreach ($this->guests as $guest):
+			$name = $guest->forename . ' ' . $guest->surname;
+			$id = $guest->guestId;
+          ?>
+          <tr>
+            <td class="guest"><?php echo $name; ?></td>
+            <td class="center">
+              <?php echo $this->formRadio($id, $guest->menuId, null, array(1 => '')); ?>
+            </td>
+            <td class="center">
+              <?php echo $this->formRadio($id, $guest->menuId, null, array(2 => '')); ?>
+            </td>
+            <td class="center">
+              <?php echo $this->formRadio($id, $guest->menuId, null, array(3 => '')); ?>
+            </td>
+            <td class="center">
+              <?php echo $this->formRadio($id, $guest->menuId, array('class' => 'special'), array(4 => '')); ?>
+            </td>
+          </tr>
+          <?php endforeach; ?>
+        </table>
+      </td>
+      <td>
+        <table>
+          <tr><td>&nbsp;</td></tr>
+          <?php foreach ($this->guests as $guest): ?>
+          <tr>
+            <td>
+              <div id="diet-<?php echo $guest->guestId; ?>" class="diet">
+                <input type="text" name="<?php echo $guest->guestId; ?>" value="<?php echo $guest->dietary; ?>" maxlength="255" size="16" class="require" />
+              </div>
+            </td>
+          </tr>
+          <?php endforeach; ?>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+

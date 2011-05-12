@@ -271,7 +271,7 @@ table.listing {
 	width: 100%;
 }
 
-table.rsvp, table.wine, table.reception, table.menu {
+table.rsvp, table.wine, table.reception {
 	width: 75% !important;
 }
 
@@ -287,8 +287,9 @@ td.guest {
 	width: 30%;
 }
 
-#diet {
-	margin: 10px 2px;
+.diet {
+	margin: 0 10px;
+	display: none;
 }
 
 .saved {

@@ -48,23 +48,12 @@
     <dt><b>Meat</b> - Slow cooked blade of beef topped with homemade pate sat on a croute with a creamy brandy sauce</dt>
     <dt><b>Fish</b> - Fillet of salmon with a lemon &amp; herb crust, champagne butter sauce and seasonal vegetables</dt>
     <dt><b>Vegetarian</b> - Saute vegetable wellington with a basil sauce</dt>
-    <!-- <dt><b>Special</b> - If you have special dietary requirements / food allergies</dt> -->
+    <dt><b>Special</b> - If you have special dietary requirements / food allergies</dt>
   </dl>
   </p>
   <form>
-    <table class="menu listing">
-      <tr class="first">
-        <th>Guest</th>
-        <th class="center">Meat</th>
-        <th class="center">Fish</th>
-        <th class="center">Vegetarian</th>
-        <!-- <th class="center">Special</th> -->
-      </tr>
-      <?php echo $this->menuOptions(); ?>
-    </table>
-    <!-- <div id="diet">
-      <input type="text" name="dietary" id="require" maxlength="255" size="40" />
-    </div> -->
+    <?php echo $this->menuOptions(); ?>
+
   </form><br/>
   <table>
     <tr>
@@ -83,110 +72,4 @@
   </table>
   </form><br/>
   <p>We will be sitting down for the wedding breakfast at approximately 4.15pm and an evening buffet served around 9pm.</p>
-<script type="text/javascript">
-  $(function() {
-    $('.rsvp input[type=radio]').change(submitRsvp);
-    $('.reception input[type=radio]').change(submitReception);
-    $('.menu input[type=radio]').change(
-      function() {
-        submitMenu($(this));
-        // showDietary();
-      }
-    );
-    $('.wine input[type=radio]').change(submitWine);
-    /*
-    $('#special-4').click(showDietary);
-    $('#require').focus(showDietHint);
-    $('#require').blur(hideDietHint);
-    showDietary();
-    */
-  });
-
-  function sorry(e) {
-    alert("Sorry, there was a problem and we cannot record your RSVP, please try again later");
-  }
-
-  function saved(saved) {
-  	$(saved).fadeIn('fast', function() {
-  		$(this).delay(300).fadeOut('slow');
-  	});
-  }
-
-  function submitRsvp() {
-  	var radio = $(this);
-  	$.ajax({
-  	  url: '/rsvp/attending',
-  	  type: 'POST',
-  	  data: 'guest=' + radio.attr('name') + '&rsvp=' + radio.attr('value'),
-  	  success: function(msg) {
-        saved('#saved-rsvp');
-  	  },
-  	  error: sorry
-  	});
-  }
-
-  function submitReception() {
-  	var radio = $(this);
-  	$.ajax({
-  	  url: '/rsvp/reception',
-  	  type: 'POST',
-  	  data: 'guest=' + $(this).attr('name') + '&reception=' + $(this).attr('value'),
-  	  success: function(msg) {
-        saved('#saved-recep');
-  	  },
-  	  error: sorry
-  	});
-  }
-
-  function submitMenu(radio) {
-  	$.ajax({
-  	  url: '/rsvp/menu',
-  	  type: 'POST',
-  	  data: 'guest=' + radio.attr('name') + '&menu=' + radio.attr('value'),
-  	  success: function(msg) {
-        saved('#saved-menu');
-  	  },
-  	  error: sorry
-  	});
-  }
-
-  function submitWine() {
-  	var radio = $(this);
-  	$.ajax({
-  	  url: '/rsvp/wine',
-  	  type: 'POST',
-  	  data: 'guest=' + $(this).attr('name') + '&wine=' + $(this).attr('value'),
-  	  success: function(msg) {
-        saved('#saved-wine');
-  	  },
-  	  error: sorry
-  	});
-  }
-
-  function showDietary() {
-    var diet = $('#diet');
-    if ($(this).attr('id') == 'special-4' || $('#special-4').attr('checked') == true) {
-      if ($('#require').attr('value') == '')
-        $('#require').attr('value', 'dietary requirements').css('color', '#bbbbbb');
-      diet.slideDown();
-    } else {
-      diet.slideUp();
-    }
-  }
-
-  function showDietHint() {
-  	var txt = $(this);
-  	if (txt.attr('value') == 'dietary requirements') {
-  	  txt.attr('value', '');
-  	  txt.css('color', '#000000');
-  	}
-  }
-
-  function hideDietHint() {
-  	var txt = $(this);
-  	if (txt.attr('value') == '') {
-      txt.css('color', '#bbbbbb');
-  	  txt.attr('value', 'dietary requirements');
-  	}
-  }
-</script>
+<script type="text/javascript" src="/js/rsvp.js"></script>
