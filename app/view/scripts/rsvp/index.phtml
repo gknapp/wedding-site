@@ -18,6 +18,7 @@
     <?php echo $this->guests(); ?>
   </table>
   </form><br/>
+<?php if (!$this->user->eveningOnly()): ?>
   <table>
     <tr>
   	  <td><h2>Reception Drinks</h2></td>
@@ -72,4 +73,5 @@
   </table>
   </form><br/>
   <p>We will be sitting down for the wedding breakfast at approximately 4.15pm and an evening buffet served around 9pm.</p>
+<?php endif; ?>
 <script type="text/javascript" src="/js/rsvp.js"></script>

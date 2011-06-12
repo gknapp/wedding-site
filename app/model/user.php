@@ -97,6 +97,14 @@ class Model_User extends Lib_Model {
 		return strtoupper($postcode);
 	}
 
+	public function eveningOnly() {
+		$user = $this->getDB()->query(
+			"SELECT day FROM user WHERE user_id = ?", $this->userId
+		)->fetch();
+
+		return (0 === (int) $user['day']) ? true : false;
+	}
+
 	public function buyGifts($gifts) {
 		$db = $this->getDB();
 

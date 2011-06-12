@@ -3,6 +3,7 @@
 class Controller_Rsvp extends Controller_LoggedIn {
 
 	public function index() {
+		$this->view->user = $this->user;
 		$this->view->guests = $this->user->getGuests();
 		$this->view->render();
 	}
