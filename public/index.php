@@ -49,7 +49,4 @@ $container->session = function($c) {
 		return new Zend_Session_Namespace($namespace);
 	};
 };
-
-//$start = microtime(true);
 $webApp->run($container);
-//echo "<p>Runtime: " . round((microtime(true) - $start) * 1000, 2) . " ms</p>";
