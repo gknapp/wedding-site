@@ -1,15 +1,50 @@
+<?php
+$guests = $this->guests->listRsvp();
+$summary = $this->guests->summarise($guests);
+?>
 <div id="main" role="main">
-  <p><?php echo $this->greeting(); ?></p>
-  <ul>
-    <li><a href="/admin">Admin Home</a></li>
-  	<li><a href="/admin/guestlist">Edit Guest List</a></li>
-  	<li><a href="/logout">Logout</a></li>
-  </ul>
+  <h1>RSVP Summary</h1>
+  <?php foreach ($summary as $question => $choices) { ?>
+  	<p><b><?php echo ucfirst($question) ?></b>:
+  	<?php
+  	$output = array();
+  	foreach ($choices as $choice => $totals) {
+  	   $output[] = $choice . ': ' . $totals;
+  	}
+  	echo implode(' | ', $output);
+  	?></p>
+  <?php } ?>
+
+  <table width="100%" class="listing">
+    <tr class="first">
+      <th>Guest</th><th>RSVP</th><th>Reception</th><th>Meal</th><th>Wine</th><th>Dietary</th>
+    </tr>
+<?php foreach ($guests as $guest) { ?>
+<?php
+    $rsvp = strtolower($guest['rsvp']);
+    $fontColor = 'black';
+    if ($rsvp == 'attending') {
+    	$color = '#eeffee';
+    	if (empty($guest['reception']) || empty($guest['menu']))
+    		$color = '#ffcc99';
+
+    	if ($guest['menu'] == 'Special')
+    		$color = '#ccccff';
+    } else if ($rsvp == 'not responded') {
+    	$color = '#ffeeee';
+    } else {
+    	$color = '#f5f5f5';
+    	$fontColor = '#bbb';
+    }
+    ?>
+<tr style="background-color: <?php echo $color ?>; color: <?php echo $fontColor ?>;">
+      <td><?php echo $guest['name'] ?></td>
+      <td><?php echo $guest['rsvp'] ?></td>
+      <td><?php echo $guest['reception'] ?></td>
+      <td><?php echo $guest['menu'] ?></td>
+      <td><?php echo $guest['wine'] ?></td>
+      <td><?php echo $guest['dietary'] ?></td>
+    </tr>
+    <?php } ?>
+  </table>
 </div>
-<script type="text/javascript" src="js/yepnope.1.0.1-min.js"></script>
-<script type="text/javascript">
-yepnope({
-  load: 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js',
-  //callback: jQueryLoaded
-});
-</script>

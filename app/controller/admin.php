@@ -9,14 +9,13 @@ class Controller_Admin extends Controller_LoggedIn {
 	}
 
 	public function index() {
-		$this->view->render(
-			$this->getControllerName() . DS . 'index.phtml'
+		$this->view->guests = new Model_Guests(
+			$this->getContainer()->database
 		);
+		$this->view->render();
 	}
 
 	public function guestlist() {
-		//$guestlist = new Model_Guestlist($this->getContainer());
-		//$this->view->guestlist =
 		$this->view->render(
 			$this->getControllerName() . DS . 'guestlist.phtml'
 		);
